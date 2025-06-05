@@ -2,7 +2,7 @@
 
 ### 1.Кочуруу
 
-![Download](./images/image.jpg)
+![Download](https://github.com/Uluk1207/project-test-with-backend/blob/main/images/image.JPG)
 ### 2. nodejs ти кочуруп установка кылыш керек https://nodejs.org/en
 
 ### 3. Кочурулгон папканын ичине киребиз, андан кийин бул команданы cmd нин ичинде запуск кылабыз npm i
