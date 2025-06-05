@@ -33,7 +33,11 @@ async function getUsers() {
     const users = await fetch("http://localhost:3000/users")
     const usersData = await users.json()
 
-    const data = usersData?.length ? usersData[0].data : []
+    let data = usersData?.length ? usersData[0].data : []
+
+    if (data.constructor !== Array) {
+      data = []
+    }
 
     if (!data.length) {
       const demoUsers = [
@@ -69,6 +73,10 @@ async function getTests() {
   const tests = await fetch("http://localhost:3000/tests")
   const testsData = await tests.json()
   let data = testsData?.length ? testsData[0].data : []
+
+  if (data.constructor !== Array) {
+    data = []
+  }
 
   if (!data.length) {
     const demoTests = [
