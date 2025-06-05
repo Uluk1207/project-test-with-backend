@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "dev": "nodemon server.mjs"
+  },
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10",
+    "sequelize": "^6.37.7",
+    "sqlite3": "^5.1.7"
+  }
+}

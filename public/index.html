@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кардарларды тестирлөө системасы</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+               <a href="index.html" class="logo" > <i class="fas fa-clipboard-list" style='font-size:36px'></i>
+                <span>Аралыктан тестирлөө</span></a>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="#" class="nav-link" onclick="showPage('home')">Башкы бет</a>
+                <a href="#" class="nav-link" onclick="showPage('login')">Кируу</a>
+                <a href="#" class="nav-link" onclick="showPage('register')">Катталуу</a>
+            </div>
+            <div class="user-menu" id="userMenu" style="display: none;">
+                <span id="userName"></span>
+                <button onclick="logout()" class="btn btn-outline">Чыгуу</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="homePage" class="page active">
+        <header class="hero">
+            <div class="container">
+                <h1>Кардарларды аралыктан <span class="highlight">тестирлөө</span> системасы</h1>
+                <p>Кардарларыңыздын билимин жана көндүмдөрүн аралыктан текшерүү үчүн заманбап жана ыңгайлуу платформа</p>
+                <div class="hero-buttons">
+                    <button onclick="showPage('register')" class="btn btn-primary">Каттоо</button>
+                    <button onclick="showPage('login')" class="btn btn-outline">Кируу</button>
+                </div>
+            </div>
+        </header>
+
+        <section class="features">
+            <div class="container">
+                <h2>Системанын мүмкүнчүлүктөрү</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-users"></i>
+                        <h3>Кардарларды башкаруу</h3>
+                        <p>Кардарларды катталуу жана алардын маалыматтарын башкаруу</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-file-alt"></i>
+                        <h3>Тест түзүү</h3>
+                        <p>Ар кандай тесттерди түзүү жана өзгөртүү мүмкүнчүлүгү</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-chart-bar"></i>
+                        <h3>Жыйынтыктарды көрүү</h3>
+                        <p>Тест жыйынтыктарын талдоо жана статистика</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Коопсуздук</h3>
+                        <p>Авторизация жана аутентификация системасы</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Login Page -->
+    <div id="loginPage" class="page">
+        <div class="auth-container">
+            <div class="auth-card">
+                <h2>Системага кируу</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Электрондук почта</label>
+                        <input type="email" id="loginEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Сырсөз</label>
+                        <input type="password" id="loginPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Кируу</button>
+                </form>
+                <div class="auth-footer">
+                    <p>Аккаунтуңуз жокпу? <a href="#" onclick="showPage('register')">Катталуу</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Page -->
+    <div id="registerPage" class="page">
+        <div class="auth-container">
+            <div class="auth-card">
+                <h2>Жаңы аккаунт түзүү</h2>
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="registerName">Толук аты</label>
+                        <input type="text" id="registerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">Электрондук почта</label>
+                        <input type="email" id="registerEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerRole">Ролу</label>
+                        <select id="registerRole">
+                            <option value="employee">Кардар</option>
+                            <option value="admin">Администратор</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Сырсөз</label>
+                        <input type="password" id="registerPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Сырсөздү ырастоо</label>
+                        <input type="password" id="confirmPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Катталуу</button>
+                </form>
+                <div class="auth-footer">
+                    <p>Аккаунтуңуз барбы? <a href="#" onclick="showPage('login')">Кируу</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminDashboard" class="page">
+        <div class="dashboard-header">
+            <h1>Администратор панели</h1>
+            <div class="dashboard-stats" id="adminStats">
+                <!-- Stats will be populated by JavaScript -->
+            </div>
+        </div>
+        
+        <div class="dashboard-grid">
+            <div class="dashboard-card" onclick="showPage('createTest')">
+                <i class="fas fa-plus"></i>
+                <h3>Жаңы тест түзүү</h3>
+                <p>Кардарлар үчүн жаңы тест түзүңүз</p>
+            </div>
+            <div class="dashboard-card" onclick="showPage('manageTests')">
+                <i class="fas fa-file-alt"></i>
+                <h3>Тесттерди башкаруу</h3>
+                <p>Учурдагы тесттерди көрүү жана өзгөртүү</p>
+            </div>
+            <div class="dashboard-card" onclick="showPage('viewResults')">
+                <i class="fas fa-chart-bar"></i>
+                <h3>Жыйынтыктар</h3>
+                <p>Кардарлардын тест жыйынтыктарын көрүү</p>
+            </div>
+            <div class="dashboard-card" onclick="showEmployees()">
+                <i class="fas fa-users"></i>
+				<h3>Кардарлар</h3>
+				<p>Катталган кардарларды башкаруу</p>
+			</div>
+        </div>
+    </div>
+
+    <!-- Employee Dashboard -->
+    <div id="employeeDashboard" class="page">
+        <div class="dashboard-header">
+            <h1>Тест тапшыруучунун панели</h1>
+            <div class="dashboard-stats" id="employeeStats">
+                <!-- Stats will be populated by JavaScript -->
+            </div>
+        </div>
+        
+        <div class="available-tests">
+            <h2>Жеткиликтүү тесттер</h2>
+            <div id="testsList" class="tests-grid">
+                <!-- Tests will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <div class="recent-results">
+            <h2>Акыркы жыйынтыктар</h2>
+            <div id="recentResults">
+                <!-- Results will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Test Page -->
+    <div id="createTestPage" class="page">
+        <div class="page-header">
+            <button onclick="showPage('adminDashboard')" class="btn btn-outline">
+                <i class="fas fa-arrow-left"></i> Артка
+            </button>
+            <h1>Жаңы тест түзүү</h1>
+        </div>
+
+        <div class="create-test-container">
+            <div class="test-info-section">
+                <h2>Тест маалыматтары</h2>
+                <form id="testInfoForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="testTitle">Тест аталышы</label>
+                            <input type="text" id="testTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="timeLimit">Убакыт чеги (мүнөт)</label>
+                            <input type="number" id="timeLimit" value="30" min="1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="testDescription">Тест сүрөттөмөсү</label>
+                        <textarea id="testDescription" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="passingScore">Өтүү упайы (%)</label>
+                        <input type="number" id="passingScore" value="70" min="0" max="100">
+                    </div>
+                </form>
+            </div>
+
+            <div class="question-section">
+                <h2>Суроо кошуу</h2>
+                <form id="questionForm">
+                    <div class="form-group">
+                        <label for="questionText">Суроо</label>
+                        <textarea id="questionText" rows="2" required></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="questionType">Суроо түрү</label>
+                            <select id="questionType" onchange="updateQuestionOptions()">
+                                <option value="multiple-choice">Көп тандоолуу</option>
+                                <option value="true-false">Туура/Туура эмес</option>
+                                <option value="text">Текст жообу</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="questionPoints">Упай</label>
+                            <input type="number" id="questionPoints" value="1" min="1">
+                        </div>
+                    </div>
+                    
+                    <div id="optionsContainer">
+                        <!-- Options will be populated by JavaScript -->
+                    </div>
+                    
+                    <button type="button" onclick="addQuestion()" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Суроо кошуу
+                    </button>
+                </form>
+            </div>
+
+            <div class="questions-list">
+                <h2>Кошулган суроолор</h2>
+                <div id="questionsList">
+                    <!-- Questions will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="save-test-section">
+                <button onclick="saveTest()" class="btn btn-success">
+                    <i class="fas fa-save"></i> Тестти сактоо
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Take Test Page -->
+    <div id="takeTestPage" class="page">
+        <div class="test-header">
+            <div class="test-info">
+                <h1 id="testTitleDisplay"></h1>
+                <div class="test-progress">
+                    <span id="questionCounter"></span>
+                    <div class="progress-bar">
+                        <div id="progressFill" class="progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="test-timer">
+                <i class="fas fa-clock"></i>
+                <span id="timeRemaining"></span>
+            </div>
+        </div>
+
+        <div class="test-content">
+            <div class="question-container">
+                <div id="currentQuestion">
+                    <!-- Current question will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="test-navigation">
+                <button id="prevBtn" onclick="previousQuestion()" class="btn btn-outline">
+                    <i class="fas fa-arrow-left"></i> Мурунку
+                </button>
+                <button id="nextBtn" onclick="nextQuestion()" class="btn btn-primary">
+                    Кийинки <i class="fas fa-arrow-right"></i>
+                </button>
+                <button id="submitBtn" onclick="submitTest()" class="btn btn-success" style="display: none;">
+                    Тестти аяктоо
+                </button>
+            </div>
+
+            <div class="question-overview">
+                <h3>Суроолордун көрүнүшү</h3>
+                <div id="questionOverview" class="question-grid">
+                    <!-- Question overview will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Test Results Page -->
+    <div id="testResultsPage" class="page">
+        <div class="results-container">
+            <div class="results-header">
+                <div id="resultIcon" class="result-icon">
+                    <!-- Icon will be set by JavaScript -->
+                </div>
+                <h1 id="resultTitle"></h1>
+                <p id="resultDate"></p>
+            </div>
+
+            <div class="results-summary">
+                <div class="result-stat">
+                    <div class="stat-value" id="finalScore"></div>
+                    <div class="stat-label">Жалпы упай</div>
+                </div>
+                <div class="result-stat">
+                    <div class="stat-value" id="correctAnswers"></div>
+                    <div class="stat-label">Туура жооптор</div>
+                </div>
+                <div class="result-stat">
+                    <div class="stat-value" id="wrongAnswers"></div>
+                    <div class="stat-label">Туура эмес жооптор</div>
+                </div>
+                <div class="result-stat">
+                    <div class="stat-value" id="timeSpent"></div>
+                    <div class="stat-label">Сарпталган убакыт</div>
+                </div>
+            </div>
+
+            <div class="pass-status" id="passStatus">
+                <!-- Pass/Fail status will be set by JavaScript -->
+            </div>
+
+            <div class="detailed-results">
+                <h2>Суроолор боюнча детальдуу жыйынтык</h2>
+                <div id="detailedAnswers">
+                    <!-- Detailed answers will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="results-actions">
+                <button onclick="exportResultsToWord()" class="btn btn-success">
+                    <i class="fas fa-file-word"></i> Word файлына экспорттоо
+                </button>
+                <button onclick="printResults()" class="btn btn-outline">
+                    <i class="fas fa-print"></i> Басып чыгаруу
+                </button>
+                <button onclick="goToEmployeeDashboard()" class="btn btn-outline">Башкы бетке кайтуу</button>
+                <button onclick="retakeTest()" class="btn btn-primary">Кайра тапшыруу</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manage Tests Page -->
+    <div id="manageTestsPage" class="page">
+        <div class="page-header">
+            <button onclick="showPage('adminDashboard')" class="btn btn-outline">
+                <i class="fas fa-arrow-left"></i> Артка
+            </button>
+            <h1>Тесттерди башкаруу</h1>
+            <button onclick="showPage('createTest')" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Жаңы тест
+            </button>
+        </div>
+
+        <div id="testsManagementList" class="tests-management">
+            <!-- Tests will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- View Results Page -->
+    <div id="viewResultsPage" class="page">
+        <div class="page-header">
+            <button onclick="showPage('adminDashboard')" class="btn btn-outline">
+                <i class="fas fa-arrow-left"></i> Артка
+            </button>
+            <h1>Тест жыйынтыктары</h1>
+            <div>
+                <button onclick="exportAllResultsToWord()" class="btn btn-success">
+                    <i class="fas fa-file-word"></i> Word файлына экспорттоо
+                </button>
+                <button onclick="printAllResults()" class="btn btn-outline">
+                    <i class="fas fa-print"></i> Басып чыгаруу
+                </button>
+            </div>
+        </div>
+
+        <div id="allResultsList" class="results-management">
+            <!-- Results will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Alert Modal -->
+    <div id="alertModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAlert()">&times;</span>
+            <div id="alertContent"></div>
+        </div>
+    </div>
+
+<!-- Edit Test Page -->
+<div id="editTestPage" class="page">
+    <div class="page-header">
+        <button onclick="showPage('manageTests')" class="btn btn-outline">
+            <i class="fas fa-arrow-left"></i> Артка
+        </button>
+        <h1>Тестти өзгөртүү</h1>
+    </div>
+
+    <div class="create-test-container">
+        <div class="test-info-section">
+            <h2>Тест маалыматтары</h2>
+            <form id="editTestInfoForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editTestTitle">Тест аталышы</label>
+                        <input type="text" id="editTestTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editTimeLimit">Убакыт чеги (мүнөт)</label>
+                        <input type="number" id="editTimeLimit" min="1">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="editTestDescription">Тест сүрөттөмөсү</label>
+                    <textarea id="editTestDescription" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="editPassingScore">Өтүү упайы (%)</label>
+                    <input type="number" id="editPassingScore" min="0" max="100">
+                </div>
+                <input type="hidden" id="editTestId">
+            </form>
+        </div>
+
+        <div class="questions-list">
+            <h2>Учурдагы суроолор</h2>
+            <div id="editQuestionsList">
+                <!-- Questions will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <div class="question-section">
+            <h2>Жаңы суроо кошуу</h2>
+            <form id="editQuestionForm">
+                <div class="form-group">
+                    <label for="editQuestionText">Суроо</label>
+                    <textarea id="editQuestionText" rows="2" required></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editQuestionType">Суроо түрү</label>
+                        <select id="editQuestionType" onchange="updateEditQuestionOptions()">
+                            <option value="multiple-choice">Көп тандоолуу</option>
+                            <option value="true-false">Туура/Туура эмес</option>
+                            <option value="text">Текст жообу</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editQuestionPoints">Упай</label>
+                        <input type="number" id="editQuestionPoints" value="1" min="1">
+                    </div>
+                </div>
+                
+                <div id="editOptionsContainer">
+                    <!-- Options will be populated by JavaScript -->
+                </div>
+                
+                <button type="button" onclick="addQuestionToEdit()" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Суроо кошуу
+                </button>
+            </form>
+        </div>
+
+        <div class="save-test-section">
+            <button onclick="saveEditedTest()" class="btn btn-success">
+                <i class="fas fa-save"></i> Өзгөртүүлөрдү сактоо
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Manage Employees Page -->
+<div id="manageEmployeesPage" class="page">
+    <div class="page-header">
+        <button onclick="showPage('adminDashboard')" class="btn btn-outline">
+            <i class="fas fa-arrow-left"></i> Артка
+        </button>
+        <h1>Кардарларды башкаруу</h1>
+    </div>
+
+    <div id="employeeListContainer" class="tests-management">
+        <!-- Кардарлардын тизмеси бул жерге жүктөлөт -->
+    </div>
+</div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
