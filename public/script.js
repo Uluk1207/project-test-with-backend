@@ -15,8 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeApp()
   setupEventListeners()
   loadDemoData()
-  updateUserToServer()
-  updateTestToServer()
 })
 
 function updateUserToServer () {
@@ -33,13 +31,9 @@ async function getUsers() {
     const users = await fetch("http://localhost:3000/users")
     const usersData = await users.json()
 
-    let data = usersData?.length ? usersData[0].data : []
+    let data = usersData?.length ? usersData[0].data : ''
 
-    if (data.constructor !== Array) {
-      data = []
-    }
-
-    if (!data.length) {
+    if (!data) {
       const demoUsers = [
         {
           id: "1",
@@ -72,13 +66,9 @@ async function getUsers() {
 async function getTests() {
   const tests = await fetch("http://localhost:3000/tests")
   const testsData = await tests.json()
-  let data = testsData?.length ? testsData[0].data : []
+  let data = testsData?.length ? testsData[0].data : ''
 
-  if (data.constructor !== Array) {
-    data = []
-  }
-
-  if (!data.length) {
+  if (!data) {
     const demoTests = [
       {
         id: "1",
@@ -718,7 +708,7 @@ function saveTest() {
     showAlert("Кеминде бир суроо кошуңуз", "error")
     return
   }
-  
+
 
   const newTest = {
     id: Date.now().toString(),
